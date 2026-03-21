@@ -1,0 +1,9 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-api-config
+data:
+  RABBITMQ_HOST: "rabbitmq"
+  ASPNETCORE_URLS: "http://+:8084"
+  ASPNETCORE_ENVIRONMENT: "Development"
+  PAYMENT_QUEUE: "payment-queue"
