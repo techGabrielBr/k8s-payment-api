@@ -119,7 +119,7 @@ dotnet run --project src/PaymentAPI
 A API ficará disponível em:
 
 ```
-http://localhost:5000
+http://localhost:5044
 ```
 
 ---
