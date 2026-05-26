@@ -1,15 +1,16 @@
-using MassTransit;
 using Events.Models;
+using MassTransit;
+using PaymentsAPI.Events.Publishers;
 
 namespace PaymentsAPI.Events.Consumers
 {
     public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
     {
-        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly SqsEventPublisher _eventPublisher;
 
-        public OrderPlacedConsumer(IPublishEndpoint publishEndpoint)
+        public OrderPlacedConsumer(SqsEventPublisher eventPublisher)
         {
-            _publishEndpoint = publishEndpoint;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task Consume(ConsumeContext<OrderPlacedEvent> context)
@@ -28,7 +29,15 @@ namespace PaymentsAPI.Events.Consumers
                 Status = approved ? "Approved" : "Rejected"
             };
 
-            await _publishEndpoint.Publish(paymentProcessed);
+            await _eventPublisher.PublishAsync(
+                "payment-processed-event",
+                paymentProcessed
+            );
+
+            await _eventPublisher.PublishAsync(
+                "payment-processed-catalog",
+                paymentProcessed
+            );
         }
     }
 }

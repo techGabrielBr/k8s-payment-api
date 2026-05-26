@@ -90,6 +90,8 @@ Para executar o projeto é necessário possuir instalado:
 * Docker
 * Kubernetes Cluster
 * kubectl
+* AWS CLI
+* Localstack CLI
 
 Clusters locais recomendados:
 
